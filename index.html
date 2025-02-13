@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine's Day on Animal Crossing Island</title>
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+      background: linear-gradient(135deg, #FFB6C1, #87CEEB);
+      color: #4B3621;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #E75480;
+      font-size: 2.5em;
+      text-shadow: 2px 2px #FFD700;
+    }
+
+    .character {
+      width: 150px;
+      margin: 20px;
+      transition: transform 0.3s;
+    }
+
+    .character:hover {
+      transform: scale(1.1);
+    }
+
+    .message {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin: 20px 0;
+      padding: 20px;
+      background-color: #FFF0F5;
+      border-radius: 15px;
+    }
+
+    .button {
+      background-color: #FF69B4;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: transform 0.3s;
+      margin: 20px;
+    }
+
+    .button:hover {
+      background-color: #FF1493;
+      transform: scale(1.1);
+    }
+
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      color: #FF69B4;
+      font-size: 20px;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container">
+    <h1>🌷 Will You Be My Valentine? 🌷</h1>
+
+    <img src="images/1200px-Isabelle_NH_Transparent.png" alt="Isabelle" class="character" />
+    <img src="images/tom_nook.png" alt="Tom Nook" class="character" />
+
+    <div class="message">
+      <p>Dear Merve,</p>
+      <p>🌼 Like Dr. Blathers loves fossils, 🌼</p>
+      <p>💰 Like Tom Nook loves his money, 💰</p>
+      <p>❤️ I love YOU! ❤️</p>
+      <p>Will you be my Valentine? We'll:</p>
+      <ul style="list-style: none; padding: 0;">
+        <li>🎁 Exchange cute gifts</li>
+        <li>🍜 Eat Ramen</li>
+        <li>🎭 End the night at the comedy show</li>
+      </ul>
+      <p>What do you say?</p>
+    </div>
+
+    <!-- Yes and No buttons -->
+    <button class="button" onclick="showResponse()">Say Yes!</button>
+    <button class="button" onclick="handleNo()">No</button>
+
+    <!-- Yes response message -->
+    <div id="response" style="display: none;">
+      <h2>Yay! 🎉</h2>
+      <p>Don't forget to give Tom Nook his money! 💖</p>
+    </div>
+  </div>
+
+  <script>
+    // Function to create falling hearts
+    function createHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      // Clear any existing hearts to avoid too many elements
+      heartsContainer.innerHTML = '';
+      for (let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        heart.innerHTML = '❤️';
+        heartsContainer.appendChild(heart);
+      }
+    }
+
+    // Function for Yes button
+    function showResponse() {
+      document.getElementById('response').style.display = 'block';
+      createHearts();
+      // Hide both buttons once a Yes is chosen
+      document.querySelectorAll('.button').forEach(btn => btn.style.display = 'none');
+
+      // Add confetti effect
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.style.position = 'fixed';
+          confetti.style.fontSize = '25px';
+          confetti.style.color = ['#FF69B4', '#FFD700', '#87CEEB'][Math.floor(Math.random() * 3)];
+          confetti.style.left = Math.random() * 100 + '%';
+          confetti.style.top = '-50px';
+          confetti.innerHTML = ['❤️', '💖', '💕', '🎉', '🌸', '✨'][Math.floor(Math.random() * 6)];
+          document.body.appendChild(confetti);
+
+          // Animate confetti
+          confetti.animate(
+            [
+              { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+              { transform: `translateY(${window.innerHeight + 100}px) rotate(360deg)`, opacity: 0 }
+            ],
+            {
+              duration: 3000 + Math.random() * 2000,
+              easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }
+          );
+        }, i * 100);
+      }
+    }
+
+    // Function for No button with random AC responses and Tom Nook's appearance
+    function handleNo() {
+      // const acResponses = [
+      //   // "Tom Nook: You missed out on a great deal!",
+      //   // "Isabelle: Oh dear, maybe next time!",
+      //   // "Blathers: Even fossils whisper, 'come back soon'!",
+      //   // "K.K. Slider: Your tune's off without a date!",
+      //   // "Brewster: How about a cozy cup of coffee instead?",
+      //   // "Celeste: The stars say it's not your time yet!"
+      // ];
+      // const randomResponse = acResponses[Math.floor(Math.random() * acResponses.length)];
+
+      // // Create or update the noResponse div with a random AC message
+      // let noResponseDiv = document.getElementById('noResponse');
+      // if (!noResponseDiv) {
+      //   noResponseDiv = document.createElement('div');
+      //   noResponseDiv.id = 'noResponse';
+      //   noResponseDiv.style.marginTop = '20px';
+      //   noResponseDiv.style.padding = '20px';
+      //   noResponseDiv.style.backgroundColor = '#FFF0F5';
+      //   noResponseDiv.style.borderRadius = '15px';
+      //   document.querySelector('.container').appendChild(noResponseDiv);
+      // }
+      // noResponseDiv.innerHTML = `<h2>${randomResponse}</h2>`;
+
+      // Create or update the Tom Nook dialog
+      let tomNookDiv = document.getElementById('tomNookDialog');
+      if (!tomNookDiv) {
+        tomNookDiv = document.createElement('div');
+        tomNookDiv.id = 'tomNookDialog';
+        tomNookDiv.style.marginTop = '20px';
+        tomNookDiv.style.padding = '20px';
+        tomNookDiv.style.backgroundColor = '#FFF0F5';
+        tomNookDiv.style.borderRadius = '15px';
+        // Flex container for image and message
+        tomNookDiv.style.display = 'flex';
+        tomNookDiv.style.alignItems = 'center';
+        tomNookDiv.style.justifyContent = 'center';
+        document.querySelector('.container').appendChild(tomNookDiv);
+      }
+      tomNookDiv.innerHTML = `
+        <img src="images/tom_nook.png" alt="Tom Nook" style="width: 100px; margin-right: 20px;" />
+        <p><strong>Tom Nook:</strong> How could you! Try again!</p>
+      `;
+
+      // Trigger the heart animation for a fun effect
+      createHearts();
+    }
+
+    // Create initial hearts on page load
+    createHearts();
+  </script>
+</body>
+</html>
